@@ -11,9 +11,11 @@ class AudioPlayerTask extends BackgroundAudioTask {
   Future<void> onStart(Map<String, dynamic> params) async {
     print("called onStart");
     // Connect to the URL
-    await _audioPlayer.setUrl("https://exampledomain.com/song.mp3");
+    await _audioPlayer.setUrl(
+        "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/01_-_Intro_-_The_Way_Of_Waking_Up_feat_Alan_Watts.mp3");
     // Now we're ready to play
-    _audioPlayer.play();
+    await _audioPlayer.play();
+    print(_audioPlayer.playing);
   }
 
   @override

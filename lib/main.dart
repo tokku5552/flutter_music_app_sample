@@ -37,8 +37,9 @@ class MyHomePage extends StatelessWidget {
             ),
             RaisedButton(
               child: Text("Start"),
-              onPressed: () {
-                AudioService.start(
+              onPressed: () async {
+                print('tap onPlay');
+                await AudioService.start(
                     backgroundTaskEntrypoint: _backgroundTaskEntrypoint);
               },
             ),
@@ -50,8 +51,9 @@ class MyHomePage extends StatelessWidget {
   }
 
   stop() => AudioService.stop();
+}
 
-  _backgroundTaskEntrypoint() {
-    AudioServiceBackground.run(() => AudioPlayerTask());
-  }
+// class内に配置せず、トップレベルの関数とする必要がある。
+_backgroundTaskEntrypoint() async {
+  AudioServiceBackground.run(() => AudioPlayerTask());
 }
