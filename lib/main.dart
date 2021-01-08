@@ -1,5 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_music_app_sample/audio_player_task.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,16 +35,23 @@ class MyHomePage extends StatelessWidget {
             Text(
               'You have pushed the button this many times:',
             ),
-            RaisedButton(child: Text("Start"), onPressed: start),
+            RaisedButton(
+              child: Text("Start"),
+              onPressed: () {
+                AudioService.start(
+                    backgroundTaskEntrypoint: _backgroundTaskEntrypoint);
+              },
+            ),
             RaisedButton(child: Text("Stop"), onPressed: stop),
           ],
         ),
       ),
     );
   }
-　// TODO チュートリアル途中
-  start() =>
-      AudioService.start(backgroundTaskEntrypoint: _backgroundTaskEntrypoint);
 
   stop() => AudioService.stop();
+
+  _backgroundTaskEntrypoint() {
+    AudioServiceBackground.run(() => AudioPlayerTask());
+  }
 }
